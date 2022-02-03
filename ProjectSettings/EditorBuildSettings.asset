@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes: [{enabled: 1, path: Assets/Scenes/Preloader.unity, guid: 254cd662fef063140b8e04d3f859725a},
+    {enabled: 1, path: Assets/Scenes/Loading.unity, guid: 0d7807903ac96794c80a541184e2b789},
+    {enabled: 1, path: Assets/Scenes/SampleScene.unity, guid: 9fc0d4010bbf28b4594072e72b8655ab},
+    {enabled: 1, path: Assets/Scenes/SampleScene.unity, guid: 9fc0d4010bbf28b4594072e72b8655ab},
+    {enabled: 1, path: Assets/Scenes/LvlFailedMenu.unity, guid: ce36c1d0c6797944b9da7482d0cbff16},
+    {enabled: 1, path: Assets/Scenes/LvlClearMenu.unity, guid: a9ae4746b0c77e24eb7e78795e3d4aa3},
+    {enabled: 1, path: Assets/Scenes/CongratulationMenu.unity, guid: 76d01fa622b4b934594e30dad10848e3}]
   m_configObjects: {}
