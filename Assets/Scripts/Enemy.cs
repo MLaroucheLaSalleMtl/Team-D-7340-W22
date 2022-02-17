@@ -7,12 +7,12 @@ public class Enemy : MonoBehaviour
     private Transform[] positions;
     private int index = 0;
     public float speed = 1;
-    public Animator anim;
+    //public Animator anim;
 
     // Start is called before the first frame update
     void Start()
     {
-        anim = GetComponent<Animator>();
+        //anim = GetComponent<Animator>();
         positions = Waypoints.positions;
     }
 
@@ -49,5 +49,11 @@ public class Enemy : MonoBehaviour
     void OnDestroy()
     {
         EnemySpawner.countAliveEnemy--;
+    }
+
+    //TO DO
+    public void TakeDamage(int damage)
+    {
+
     }
 }
