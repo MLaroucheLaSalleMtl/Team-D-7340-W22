@@ -6,11 +6,13 @@ using UnityEngine.EventSystems;
 
 public class BuildManager : MonoBehaviour
 {
+    //Variable for singleton pattern
+    public static BuildManager instance = null; 
+
     public TowerData towerIceData;
     public TowerData towerEarthData;
     public TowerData towerCrystalData;
     public TowerData towerFireData;
-
 
     public Text manaText;
 
@@ -21,33 +23,47 @@ public class BuildManager : MonoBehaviour
     //Express current tower selection(the tower that want to build)
     private TowerData selectedTowerData;
 
-    void ChangeMana(int change=0)
+    void ChangeMana(int change = 0)
     {
         mana += change;
         manaText.text = " " + mana;
     }
 
+    //Singleton pattern
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
 
-
-    private void Update()
+    void Update()
     {
         if(Input.GetMouseButtonDown(0))
         {
-            if (EventSystem.current.IsPointerOverGameObject()==false)
+            if (!EventSystem.current.IsPointerOverGameObject())
             {
+                Debug.Log("Not clicking UI");
+
+                //Using ray for the mouse click detection
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
-                bool isCollider = Physics.Raycast(ray,out hit, 1000, LayerMask.GetMask("Grass"));
+                RaycastHit hit; //Ray's target
+                bool isCollider = Physics.Raycast(ray,out hit, LayerMask.GetMask("Grass"));
                 if(isCollider)
                 {
-                    Grass Grass = hit.collider.GetComponent<Grass>();
-                    if(Grass.towerGo == null)
+                    Grass grass = hit.collider.GetComponent<Grass>();
+                    if(selectedTowerData != null && grass.towerGo == null)
                     {
                         //Can build
-                        if(mana > selectedTowerData.cost)
+                        if(mana >= selectedTowerData.cost)
                         {
                             ChangeMana(-selectedTowerData.cost);
-                            Grass.BuildTower(selectedTowerData.towerPrefab);
+                            grass.BuildTower(selectedTowerData.towerPrefab);
                         }
                         else
                         {
@@ -61,6 +77,11 @@ public class BuildManager : MonoBehaviour
                     }
                 }
             }
+            else if (EventSystem.current.IsPointerOverGameObject())
+            {
+                Debug.Log("Clicking UI");
+            }
+
         }
     }
 

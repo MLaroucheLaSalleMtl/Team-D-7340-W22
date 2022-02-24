@@ -5,10 +5,11 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     //Variables for dmg system
-    [SerializeField] private int damage = 0; //TO BE ADJUSTED
+    [SerializeField] private int damage = 50; //TO BE ADJUSTED
 
     //Variables for attack behavior
-    [SerializeField] private float speed = 20;
+    [SerializeField] private float speed = 25f;
+    [SerializeField] private float distance = 1f; //The distance between bullet and enemy
     private Transform target;
 
     //VFX
@@ -22,18 +23,48 @@ public class Bullet : MonoBehaviour
 
     void Update()
     {
+        //fix NullReferenceException bug
+        if (target == null)
+        {
+            SelfDestroy(); //Destroy the bullet when enemy reaches the Throne
+            return;
+        }
+
         transform.LookAt(target.position); //Make the bullet face the target
         transform.Translate(Vector3.forward * speed * Time.deltaTime); //Make the bullet move to the target
+
+        //The distance detection
+        Vector3 dir = target.position - transform.position;
+        if (dir.magnitude < distance)
+        {
+            //The target get damage when gets hit from bullet
+            target.GetComponent<Enemy>().TakeDamage(damage);
+            Hit();
+        }
+    }
+
+    //Hit behavior
+    void Hit()
+    {
+        //GameObject effect = (GameObject)Instantiate(hitEffectPrefab, transform.position, transform.rotation);
+        //Destroy(effect, 1); //Remove the effect after 1 sec
+        SelfDestroy();
+    }
+
+    //Self destroy behavior
+    void SelfDestroy()
+    {
+        Destroy(this.gameObject, 0.1f); //Remove the bullet after 0.1 sec
     }
 
     //Collision detection between bullet and its target
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Enemy")
+        if (other.CompareTag("Enemy"))
         {
             other.GetComponent<Enemy>().TakeDamage(damage);
-            GameObject.Instantiate(hitEffectPrefab, transform.position, transform.rotation);
-            Destroy(this.gameObject);
+            Hit();
         }
     }
+
 }

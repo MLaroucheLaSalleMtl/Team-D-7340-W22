@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
+    //Variable for singleton pattern
+    public static EnemySpawner instance = null;
+
+    //Variables for spawner
     public static int countAliveEnemy = 0;
     public Wave[] waves;
     public Transform start;
-    public float waveRate = 0.1f; //Interval between waves
+    [SerializeField] private float waveRate = 0.1f; //Interval between waves
 
     IEnumerator SpawnEnemy()
     {
@@ -25,6 +29,19 @@ public class EnemySpawner : MonoBehaviour
                 yield return 0;
             }
             yield return new WaitForSeconds(waveRate);
+        }
+    }
+
+    //Singleton pattern
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
         }
     }
 

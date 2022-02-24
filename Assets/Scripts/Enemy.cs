@@ -1,19 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
+    //Variables for the parameters of the enemy
+    public int hp = 100;
+    private int totalHP;
     private Transform[] positions;
-    private int index = 0;
+    private int index = 0;   
     public float speed = 1;
+
+    //Variables for the Enemy hp bar 
+    private Slider hpSlider;
+
     //public Animator anim;
+
+    //VFX of death behavior
+    [SerializeField] private GameObject deathEffect;
 
     // Start is called before the first frame update
     void Start()
     {
         //anim = GetComponent<Animator>();
         positions = Waypoints.positions;
+        totalHP = hp;
+        hpSlider = GetComponentInChildren<Slider>();
     }
 
     // Update is called once per frame
@@ -44,16 +57,32 @@ public class Enemy : MonoBehaviour
 
     void ReachDestination()
     {
-        GameObject.Destroy(this.gameObject);
+        GameObject.Destroy(this.gameObject); //Destroy the enemy when it reaches its destination
     }
+
     void OnDestroy()
     {
         EnemySpawner.countAliveEnemy--;
     }
 
-    //TO DO
+    //Injury behavior
     public void TakeDamage(int damage)
     {
+        if (hp <= 0) return;
+        hp -= damage;
+        //Let the enemy hp bar working.
+        hpSlider.value = (float)hp / totalHP;
+        if (hp <= 0)
+        {
+            Die();
+        }
+    }
 
+    //Death behavior
+    void Die()
+    {
+        //GameObject effect = (GameObject)Instantiate(deathEffect, transform.position, transform.rotation);
+        //Destroy(effect, 1f); //Destory the effect after 1 sec
+        Destroy(this.gameObject);
     }
 }
