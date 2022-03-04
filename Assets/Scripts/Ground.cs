@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Grass : MonoBehaviour
+public class Ground : MonoBehaviour
 {
-    public GameObject towerGo;//save current tower that on the grass
+    public GameObject towerGo;//save current tower that on the ground
 
-    //Variables for the highlight of the grass cube
+    //Variables for the highlight of the ground cube
     [SerializeField] private Color cubeColor;
     private Color startColor;
     private Renderer rend;

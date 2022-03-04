@@ -34,7 +34,7 @@ public class Tower : MonoBehaviour
         //Fix NullReferenceException bug
         if (enemies[0] == null)
         {
-            UpdateEnemy();
+            RemoveEnemy();
         }
 
         //Attack condition check
@@ -43,7 +43,7 @@ public class Tower : MonoBehaviour
             //Generate bullet
             GameObject bullet = (GameObject)Instantiate(bulletPrefab, attackPosition.position, attackPosition.rotation);
             //Set the first enemy of the list as the priority target
-            bullet.GetComponent<Bullet>().SetTarget(enemies[0].transform);
+            bullet.GetComponent<Bullet>().SetTarget(enemies[0].transform);            
         }
         else
         {
@@ -51,7 +51,7 @@ public class Tower : MonoBehaviour
         }
     }
 
-    void UpdateEnemy()
+    void RemoveEnemy()
     {
         //Remove the null elements in the enemy list
         enemies.RemoveAll(e => e == null);
@@ -72,5 +72,11 @@ public class Tower : MonoBehaviour
             enemies.Remove(other.gameObject); //Remove a target when it exits the attack range
         }
     }
-
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Dead"))
+        {
+            enemies.Remove(other.gameObject); //Remove a target when it is dead
+        }
+    }
 }

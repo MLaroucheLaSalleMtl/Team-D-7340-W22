@@ -496,8 +496,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 300
-  speed: 15
-  deathEffect: {fileID: 0}
+  speed: 45
+  damage: 1
+  anim: {fileID: 0}
 --- !u!1 &6766738615762163972
 GameObject:
   m_ObjectHideFlags: 0

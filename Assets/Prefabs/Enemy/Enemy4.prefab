@@ -1237,9 +1237,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5759dd21b9b071a43a29caee5af94bab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 1500
+  hp: 5000
   speed: 12
-  deathEffect: {fileID: 0}
+  damage: 1
+  anim: {fileID: 0}
 --- !u!1 &6679984590639262417
 GameObject:
   m_ObjectHideFlags: 0

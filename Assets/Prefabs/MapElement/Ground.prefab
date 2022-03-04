@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -5796779572936570821}
   - component: {fileID: 4489767763474850864}
   m_Layer: 6
-  m_Name: Grass
+  m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -111,4 +111,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerGo: {fileID: 0}
-  cubeColor: {r: 0.9339623, g: 0.8889555, b: 0.4528836, a: 0}
+  cubeColor: {r: 0.13204399, g: 0.9528302, b: 0.0665183, a: 0}

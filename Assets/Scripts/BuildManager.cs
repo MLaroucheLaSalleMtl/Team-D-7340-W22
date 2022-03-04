@@ -19,6 +19,12 @@ public class BuildManager : MonoBehaviour
     public Animator manaanimator;
 
 
+    public GameObject endUI;
+    public Text endMessage;
+
+    public static BuildManager Instance;
+
+
     public int mana = 100;
     //Express current tower selection(the tower that want to build)
     private TowerData selectedTowerData;
@@ -32,6 +38,7 @@ public class BuildManager : MonoBehaviour
     //Singleton pattern
     private void Awake()
     {
+        instance = this;
         if (instance == null)
         {
             instance = this;
@@ -48,22 +55,20 @@ public class BuildManager : MonoBehaviour
         {
             if (!EventSystem.current.IsPointerOverGameObject())
             {
-                Debug.Log("Not clicking UI");
-
                 //Using ray for the mouse click detection
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit; //Ray's target
-                bool isCollider = Physics.Raycast(ray,out hit, LayerMask.GetMask("Grass"));
-                if(isCollider)
+                bool isCollider = Physics.Raycast(ray,out hit, LayerMask.GetMask("Ground"));
+                if (isCollider)
                 {
-                    Grass grass = hit.collider.GetComponent<Grass>();
-                    if(selectedTowerData != null && grass.towerGo == null)
+                    Ground ground = hit.collider.GetComponent<Ground>();
+                    if (selectedTowerData != null && ground.towerGo == null)
                     {
                         //Can build
-                        if(mana >= selectedTowerData.cost)
+                        if (mana >= selectedTowerData.cost)
                         {
                             ChangeMana(-selectedTowerData.cost);
-                            grass.BuildTower(selectedTowerData.towerPrefab);
+                            ground.BuildTower(selectedTowerData.towerPrefab);
                         }
                         else
                         {
@@ -76,13 +81,15 @@ public class BuildManager : MonoBehaviour
                         //upgrade
                     }
                 }
+                else
+                    return;
             }
             else if (EventSystem.current.IsPointerOverGameObject())
             {
-                Debug.Log("Clicking UI");
             }
 
         }
+
     }
 
     public void OnIceSelected(bool isOn)
@@ -114,8 +121,18 @@ public class BuildManager : MonoBehaviour
         }
     }
     
-
+    public void Win()
+    {
+        endUI.SetActive(true);
+        endMessage.text = "Victory";
+    }
     
+    public void Defeat()
+    {
+        endUI.SetActive(true);
+        endMessage.text = "Defeat";
+        
+    }
 
 
 

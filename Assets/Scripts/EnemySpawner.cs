@@ -13,6 +13,15 @@ public class EnemySpawner : MonoBehaviour
     public Transform start;
     [SerializeField] private float waveRate = 0.1f; //Interval between waves
 
+    void Start()
+    {
+        StartCoroutine("SpawnEnemy");
+    }
+
+    public void Stop()
+    {
+        StopCoroutine("SpawnEnemy");
+    }
     IEnumerator SpawnEnemy()
     {
         foreach (Wave wave in waves)
@@ -45,9 +54,5 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-        StartCoroutine(SpawnEnemy());
-    }
 
 }

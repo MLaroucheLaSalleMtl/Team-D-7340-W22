@@ -12,23 +12,20 @@ EditorBuildSettings:
     path: Assets/Scenes/Loading.unity
     guid: 0d7807903ac96794c80a541184e2b789
   - enabled: 1
-    path: Assets/Scenes/Main Menu.unity
+    path: Assets/Scenes/MainMenu.unity
     guid: 746b88f57bff56f489fa5481598567b3
   - enabled: 1
     path: Assets/Scenes/Option.unity
     guid: 13fb4c6d53ed6294981ad9fec2454fa8
   - enabled: 1
-    path: Assets/Scenes/Main Menu.unity
-    guid: 746b88f57bff56f489fa5481598567b3
-  - enabled: 1
-    path: Assets/Scenes/TestScene.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 1
-    path: Assets/Scenes/LvlFailedMenu.unity
-    guid: ce36c1d0c6797944b9da7482d0cbff16
+    path: Assets/Scenes/Level1.unity
+    guid: e7afec90b0dc6b446844daad6c030539
   - enabled: 1
     path: Assets/Scenes/LvlClearMenu.unity
     guid: a9ae4746b0c77e24eb7e78795e3d4aa3
+  - enabled: 1
+    path: Assets/Scenes/LvlFailedMenu.unity
+    guid: ce36c1d0c6797944b9da7482d0cbff16
   - enabled: 1
     path: Assets/Scenes/CongratulationMenu.unity
     guid: 76d01fa622b4b934594e30dad10848e3
