@@ -14,6 +14,9 @@ public class BuildManager : MonoBehaviour
     public TowerData towerCrystalData;
     public TowerData towerFireData;
 
+    //Indicates the currently selected tower(Game objects in the scene)
+    private Ground selectedGround;
+
     public Text manaText;
 
     public Animator manaanimator;
@@ -24,12 +27,19 @@ public class BuildManager : MonoBehaviour
 
     public static BuildManager Instance;
 
-
     public int mana = 100;
-    //Express current tower selection(the tower that want to build)
-    private TowerData selectedTowerData;
 
-    void ChangeMana(int change = 0)
+    public GameObject upgradeTowerCanvas;
+
+    private Animator upgradeTowerCanvasAnimator;
+
+    public Button upgradeButton;
+
+    //Variables for tower selection
+    private TowerData selectedTowerData; //The selected tower in the build UI
+    //private GameObject selectedTowerGo; //The selected tower in the scene
+
+    public void ChangeMana(int change = 0)
     {
         mana += change;
         manaText.text = " " + mana;
@@ -48,6 +58,12 @@ public class BuildManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    void Start()
+    {
+        upgradeTowerCanvasAnimator = upgradeTowerCanvas.GetComponent<Animator>();
+    }
+
 
     void Update()
     {
@@ -68,7 +84,7 @@ public class BuildManager : MonoBehaviour
                         if (mana >= selectedTowerData.cost)
                         {
                             ChangeMana(-selectedTowerData.cost);
-                            ground.BuildTower(selectedTowerData.towerPrefab);
+                            ground.BuildTower(selectedTowerData);
                         }
                         else
                         {
@@ -76,9 +92,19 @@ public class BuildManager : MonoBehaviour
                             manaanimator.SetTrigger("Flicker");
                         }
                     }
-                    else
+                    else if (ground.towerGo !=null)
                     {
                         //upgrade
+                        ShowUpgradeUI(ground.transform.position, ground.isUpgraded);
+                        if (ground == selectedGround && upgradeTowerCanvas.activeInHierarchy) 
+                        {
+                            StartCoroutine(HideUpgradeUI());   
+                        }
+                        else
+                        {
+                            ShowUpgradeUI(ground.transform.position, ground.isUpgraded);
+                        }
+                        selectedGround = ground; //Update the selection
                     }
                 }
                 else
@@ -134,7 +160,40 @@ public class BuildManager : MonoBehaviour
         
     }
 
+    //Upgrade tower UI with hide and show function
+    void ShowUpgradeUI(Vector3 pos, bool isDisableUpgrade = false)
+    {
+        StopCoroutine("HideUpgradeUI");
+        upgradeTowerCanvas.SetActive(false);
+        upgradeTowerCanvas.SetActive(true);
+        upgradeTowerCanvas.transform.position = pos; //Fix the stuck bug
+        upgradeButton.interactable = isActiveAndEnabled;
+        upgradeButton.interactable = !isDisableUpgrade;
+    }
 
+    IEnumerator HideUpgradeUI()
+    {
+        upgradeTowerCanvasAnimator.SetTrigger("Hide");
+        upgradeTowerCanvas.SetActive(false);
+        yield return new WaitForSeconds(0.8f);
+        //upgradeTowerCanvas.SetActive(false);
 
+    }
+
+    //upgrade tower function
+    public void OnUpgradeButtonDown()
+    {
+        Debug.Log("");
+        selectedGround.UpgradeTower();
+        StartCoroutine(HideUpgradeUI());
+    }
+
+    //Destroy tower function
+    public void OnDestroyButtonDown()
+    {
+        selectedGround.DestroyTower();
+        selectedGround.isUpgraded = false;
+        StartCoroutine(HideUpgradeUI());
+    }
 
 }

@@ -13,8 +13,11 @@ public class Tower : MonoBehaviour
     public GameObject bulletPrefab;
     public Transform attackPosition;
 
+    //Audio for tower attack
+    private AudioSource attackAudio;
     void Start()
     {
+        attackAudio = GetComponentInChildren<AudioSource>();
         timer = attackRate; //Fix the attack delay bug
     }
 
@@ -43,6 +46,7 @@ public class Tower : MonoBehaviour
             //Generate bullet
             GameObject bullet = (GameObject)Instantiate(bulletPrefab, attackPosition.position, attackPosition.rotation);
             //Set the first enemy of the list as the priority target
+            if (attackAudio) attackAudio.PlayOneShot(attackAudio.clip);
             bullet.GetComponent<Bullet>().SetTarget(enemies[0].transform);            
         }
         else

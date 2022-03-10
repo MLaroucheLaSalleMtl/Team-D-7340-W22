@@ -13,7 +13,7 @@ public class Bullet : MonoBehaviour
     private Transform target;
 
     //VFX
-    public GameObject hitEffectPrefab; //TO BE ADDED
+    public GameObject hitEffectPrefab; 
 
     //Find target behavior
     public void SetTarget(Transform tar)
@@ -46,8 +46,8 @@ public class Bullet : MonoBehaviour
     //Hit behavior
     void Hit()
     {
-        //GameObject effect = (GameObject)Instantiate(hitEffectPrefab, transform.position, transform.rotation);
-        //Destroy(effect, 1); //Remove the effect after 1 sec
+        GameObject effect = (GameObject)Instantiate(hitEffectPrefab, transform.position, transform.rotation);
+        Destroy(effect, 1f); //Remove the effect after 1 sec
         SelfDestroy();
     }
 

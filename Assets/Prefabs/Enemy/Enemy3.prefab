@@ -863,8 +863,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 2000
-  speed: 18
+  speed: 10
   damage: 1
+  reward: 80
   anim: {fileID: 0}
 --- !u!1 &4198066045624777658
 GameObject:

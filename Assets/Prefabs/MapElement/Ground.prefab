@@ -112,3 +112,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerGo: {fileID: 0}
   cubeColor: {r: 0.13204399, g: 0.9528302, b: 0.0665183, a: 0}
+  buildFX: {fileID: 6135844756899225868, guid: 05ab1a8a02fcf834bb619735fcccb16c, type: 3}

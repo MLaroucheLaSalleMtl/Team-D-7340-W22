@@ -10,11 +10,16 @@ public class EnemySpawner : MonoBehaviour
     //Variables for spawner
     public static int countAliveEnemy = 0;
     public Wave[] waves;
+    private int waveCount = 0;
     public Transform start;
     [SerializeField] private float waveRate = 0.1f; //Interval between waves
 
+    //Game manager
+    private GameManager gameManager;
+
     void Start()
     {
+        gameManager = GameManager.Instance; //Cache the game manager
         StartCoroutine("SpawnEnemy");
     }
 
@@ -38,7 +43,11 @@ public class EnemySpawner : MonoBehaviour
                 yield return 0;
             }
             yield return new WaitForSeconds(waveRate);
+            waveCount++;
         }
+        //Game winner condition
+        if (waveCount == waves.Length)
+            gameManager.Win();
     }
 
     //Singleton pattern

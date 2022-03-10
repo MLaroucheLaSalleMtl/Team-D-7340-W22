@@ -7,7 +7,6 @@ TagManager:
   - Enemy
   - enemyBug
   - Dead
-  - Terminal
   layers:
   - Default
   - TransparentFX

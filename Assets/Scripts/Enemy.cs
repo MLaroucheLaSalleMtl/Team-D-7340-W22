@@ -10,17 +10,19 @@ public class Enemy : MonoBehaviour
     private int totalHP;
     private Transform[] positions;
     private int index = 0;   
-    public float speed = 1;
-    public int damage = 1;
+    public float speed = 1f;
+    [SerializeField]private int damage = 1;
+    [SerializeField]private int reward = 20;
+    private bool isDead = false; //To fix the kill reward stack bug
 
     //Variables for the Enemy hp bar 
     private Slider hpSlider;
 
+    //Variable for the death animation
     public Animator anim;
 
-    //VFX of death behavior
-    //[SerializeField] private GameObject deathEffect;
-
+    //Build manager
+    private BuildManager bdManager;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +31,7 @@ public class Enemy : MonoBehaviour
         positions = Waypoints.positions;
         totalHP = hp;
         hpSlider = GetComponentInChildren<Slider>();
+        bdManager = BuildManager.instance; //Cache the build manager
     }
 
     // Update is called once per frame
@@ -39,28 +42,22 @@ public class Enemy : MonoBehaviour
 
     void Move()
     {
-        if (index > positions.Length - 1)
-        {
-            return;//TO DO: decrease HP when enemy hits the throne
-        }
         //Move between the waypoints
         transform.LookAt(positions[index].position);
         transform.position = Vector3.MoveTowards(transform.position, positions[index].position,Time.deltaTime*speed);
-        //transform.Translate((positions[index].position - transform.position).normalized * Time.deltaTime * speed);
         //Move to next waypoint when arrive one waypoint
         if (Vector3.Distance(positions[index].position, transform.position) < 0.2f)
             index++;
         //Reach the throne
         if (index > positions.Length - 1)
         {
-            Debug.Log("Enemy entered!");
             ReachDestination();
         }
     }
 
     void ReachDestination()
     {
-        //GameManager.Instance.Defeat();
+        ThroneStat.hp -= damage; //Damage the throne
         GameObject.Destroy(this.gameObject); //Destroy the enemy when it reaches its destination
     }
 
@@ -70,36 +67,23 @@ public class Enemy : MonoBehaviour
     }
 
     //Injury behavior
-    public void TakeDamage(int damage)
+    public void TakeDamage(int dmg)
     {
-        if (hp <= 0) return;
-        hp -= damage;
+        hp -= dmg;
         //Let the enemy hp bar working.
         hpSlider.value = (float)hp / totalHP;
-        if (hp <= 0)
+        if (hp <= 0 && !isDead)
         {
             Die();
+            bdManager.ChangeMana(reward);
         }
     }
-    //void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.CompareTag("Terminal"))
-    //    {
-    //        Debug.Log("Enemy entered!");
-    //        other.GetComponent<Terminal>().TakeDamage(damage);
-    //        ReachDestination();
-    //    }
-    //}
-
-
-
 
     //Death behavior
     void Die()
     {
-        //GameObject effect = (GameObject)Instantiate(deathEffect, transform.position, transform.rotation);
-        //Destroy(effect, 1f); //Destory the effect after 1 sec
         speed = 0; //Freeze the enemy's position
+        isDead = true;
         anim.SetBool("Death", true);
         this.gameObject.tag = "Dead";
         Destroy(this.gameObject, 3f);
