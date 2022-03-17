@@ -12,7 +12,7 @@ public class ThroneHpBar : MonoBehaviour
     void Start()
     {
         totalHP = 10;
-        hpSlider = GetComponentInChildren<Slider>();
+        hpSlider = GameObject.Find("HPSlider").GetComponent<Slider>();
     }
 
     void Update()

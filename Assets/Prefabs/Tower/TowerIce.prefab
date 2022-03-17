@@ -363,7 +363,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemies: []
-  attackRate: 0.3
+  attackRate: 0.5
   timer: 0
   bulletPrefab: {fileID: 7360164277538286584, guid: 8cf416882340f964ab4f203be19b033e, type: 3}
   attackPosition: {fileID: 215783785}

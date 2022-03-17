@@ -5,8 +5,8 @@ using UnityEngine;
 public class Ground : MonoBehaviour
 {
     public GameObject towerGo;//save current tower that on the ground
-
-    private TowerData towerData;
+    [HideInInspector]
+    public TowerData towerData;
     [HideInInspector]
     public bool isUpgraded = false;
 
@@ -39,7 +39,7 @@ public class Ground : MonoBehaviour
 
         Destroy(towerGo);
         isUpgraded = true;
-        towerGo = (GameObject)Instantiate(towerData.towerPrefab, transform.position, Quaternion.identity);
+        towerGo = (GameObject)Instantiate(towerData.TowerUpgradedPrefab, transform.position, Quaternion.identity);
     }
 
     public void DestroyTower()

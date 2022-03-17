@@ -22,8 +22,8 @@ public class BuildManager : MonoBehaviour
     public Animator manaanimator;
 
 
-    public GameObject endUI;
-    public Text endMessage;
+    //public GameObject endUI;
+    //public Text endMessage;
 
     public static BuildManager Instance;
 
@@ -147,18 +147,18 @@ public class BuildManager : MonoBehaviour
         }
     }
     
-    public void Win()
-    {
-        endUI.SetActive(true);
-        endMessage.text = "Victory";
-    }
+    //public void Win()
+    //{
+    //    endUI.SetActive(true);
+    //    endMessage.text = "Victory";
+    //}
     
-    public void Defeat()
-    {
-        endUI.SetActive(true);
-        endMessage.text = "Defeat";
+    //public void Defeat()
+    //{
+    //    endUI.SetActive(true);
+    //    endMessage.text = "Defeat";
         
-    }
+    //}
 
     //Upgrade tower UI with hide and show function
     void ShowUpgradeUI(Vector3 pos, bool isDisableUpgrade = false)
@@ -184,6 +184,15 @@ public class BuildManager : MonoBehaviour
     public void OnUpgradeButtonDown()
     {
         Debug.Log("");
+        if(mana >= selectedGround.towerData.UpgradedCost)
+        {
+            ChangeMana(-selectedGround.towerData.UpgradedCost);
+            selectedGround.UpgradeTower();
+        }
+        else
+        {
+            manaanimator.SetTrigger("Flicker");
+        }
         selectedGround.UpgradeTower();
         StartCoroutine(HideUpgradeUI());
     }

@@ -9604,7 +9604,7 @@ MonoBehaviour:
   damage: 20
   speed: 25
   distance: 0.2
-  hitEffectPrefab: {fileID: 0}
+  hitEffectPrefab: {fileID: 8464598820677128303, guid: fccb79fa4cf6a1e4b8aea7e58a0cba44, type: 3}
 --- !u!1 &100006
 GameObject:
   m_ObjectHideFlags: 0
@@ -10048,7 +10048,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startRotationX:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 0
       minScalar: 0
       maxCurve:
@@ -10101,7 +10101,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startRotationY:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 0
       minScalar: 0
       maxCurve:

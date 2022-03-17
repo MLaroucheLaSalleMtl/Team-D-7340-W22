@@ -10,8 +10,8 @@ public class Bullet : MonoBehaviour
     //Variables for attack behavior
     [SerializeField] private float speed = 25f;
     [SerializeField] private float distance = 1f; //The distance between bullet and enemy
+    [SerializeField] private float slowPercentage = 0.5f;
     private Transform target;
-
     //VFX
     public GameObject hitEffectPrefab; 
 
@@ -46,6 +46,7 @@ public class Bullet : MonoBehaviour
     //Hit behavior
     void Hit()
     {
+        target.GetComponent<Enemy>().Slow(slowPercentage);
         GameObject effect = (GameObject)Instantiate(hitEffectPrefab, transform.position, transform.rotation);
         Destroy(effect, 1f); //Remove the effect after 1 sec
         SelfDestroy();
