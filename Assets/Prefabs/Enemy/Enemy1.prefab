@@ -1441,10 +1441,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 300
-  startSpeed: 5
+  startSpeed: 3
   speed: 5
   damage: 1
   reward: 20
+  isDead: 0
   anim: {fileID: 0}
 --- !u!1 &7674025010969397601
 GameObject:

@@ -8,9 +8,8 @@ public class GameManager : MonoBehaviour
     public GameObject endUI;
     public Text endMessage;
 
-    public static GameManager Instance;
-    private EnemySpawner enemySpawner;
-
+    public static GameManager instance;
+    private EnemySpawner enemySpawner;   
 
     void Update()
     {
@@ -22,13 +21,24 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
+        //Singleton pattern
+        instance = this;
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+
         enemySpawner = GetComponent<EnemySpawner>();
     }
     public void Win()
     {
         enemySpawner.Stop();
         endUI.SetActive(true);
+        endMessage.color = Color.green;
         endMessage.text = "Victory";
     }
 
@@ -37,6 +47,5 @@ public class GameManager : MonoBehaviour
         enemySpawner.Stop();
         endUI.SetActive(true);
         endMessage.text = "Defeat";
-
     }
 }

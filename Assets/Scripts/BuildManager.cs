@@ -18,21 +18,11 @@ public class BuildManager : MonoBehaviour
     private Ground selectedGround;
 
     public Text manaText;
-
     public Animator manaanimator;
-
-
-    //public GameObject endUI;
-    //public Text endMessage;
-
-    public static BuildManager Instance;
-
     public int mana = 100;
 
     public GameObject upgradeTowerCanvas;
-
     private Animator upgradeTowerCanvasAnimator;
-
     public Button upgradeButton;
 
     //Variables for tower selection
@@ -146,19 +136,6 @@ public class BuildManager : MonoBehaviour
             selectedTowerData = towerFireData;
         }
     }
-    
-    //public void Win()
-    //{
-    //    endUI.SetActive(true);
-    //    endMessage.text = "Victory";
-    //}
-    
-    //public void Defeat()
-    //{
-    //    endUI.SetActive(true);
-    //    endMessage.text = "Defeat";
-        
-    //}
 
     //Upgrade tower UI with hide and show function
     void ShowUpgradeUI(Vector3 pos, bool isDisableUpgrade = false)

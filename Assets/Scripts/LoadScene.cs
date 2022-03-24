@@ -7,7 +7,16 @@ public class LoadScene : MonoBehaviour
 {
     private AsyncOperation async;
 
-    //For BtnNext
+    //Restart Level
+    public void Restart()
+    {
+        if (async == null) //To avoid freezing problem
+        {
+            Scene currentScene = SceneManager.GetActiveScene();
+            async = SceneManager.LoadSceneAsync(currentScene.buildIndex + 0);
+        }
+    }
+    //Next Level
     public void Load()
     {
         if (async == null) //To avoid freezing problem

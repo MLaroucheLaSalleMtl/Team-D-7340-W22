@@ -4872,6 +4872,7 @@ MonoBehaviour:
   damage: 10
   speed: 50
   distance: 0.2
+  slowPercentage: 0.5
   hitEffectPrefab: {fileID: 6081740260806734457, guid: 8aad15b9bac6d3f46aa3d578968b708f, type: 3}
 --- !u!1 &7360164277538286586
 GameObject:

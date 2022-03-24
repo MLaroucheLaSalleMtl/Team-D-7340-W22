@@ -734,9 +734,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 400
+  startSpeed: 7
   speed: 8
   damage: 1
   reward: 30
+  isDead: 0
   anim: {fileID: 0}
 --- !u!1 &2230011168977703501
 GameObject:
@@ -1515,7 +1517,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7027215b1947d0b479f54ae1a59fae47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myCam: {fileID: 0}
 --- !u!1 &7251184864546830036
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,13 +10,17 @@ public class Enemy : MonoBehaviour
     private int totalHP;
     private Transform[] positions;
     private int index = 0;
-    public float startSpeed = 1f;
+    [SerializeField]private float startSpeed = 1f;
 
-    [HideInInspector]
+    //[HideInInspector]
     public float speed;
     [SerializeField]private int damage = 1;
     [SerializeField]private int reward = 20;
-    private bool isDead = false; //To fix the kill reward stack bug
+    [HideInInspector]public bool isDead = false; //To fix the kill reward stack bug
+    private float freezeDuration = 3f;
+    private bool frozen = false;
+    private float stunDuration = 1f;
+    private bool stunned = false;
 
     //Variables for the Enemy hp bar 
     private Slider hpSlider;
@@ -43,6 +47,26 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         Move();
+
+        //Freeze restoration
+        if(frozen)
+            freezeDuration -= Time.deltaTime;
+        if (freezeDuration <= 0)
+        {
+            frozen = false;
+            freezeDuration = 3f;
+            speed = startSpeed;
+        }
+
+        //Stun restoration
+        if (stunned)
+            stunDuration -= Time.deltaTime;
+        if(stunDuration <= 0)
+        {
+            stunned = false;
+            stunDuration = 1f;
+            speed = startSpeed;
+        }
     }
 
     void Move()
@@ -83,10 +107,35 @@ public class Enemy : MonoBehaviour
             bdManager.ChangeMana(reward);
         }
     }
+    //Slow
     public void Slow(float percentage)
     {
         speed = startSpeed *(1f - percentage);
     }
+
+    //Freeze effect
+    public void Freeze(float percentage)
+    {
+        frozen = true;
+        Slow(percentage);
+    }
+    //private IEnumerator WaitForFreeze()
+    //{
+    //    yield return new WaitForSeconds(freezeDuration);
+    //    Slow(0f); //Restore the move speed after freeze duration is over
+    //}
+
+    //Stun effect
+    public void Stun()
+    {
+        stunned = true;
+        Slow(1f); //Stun: slow by 100%
+    }
+    //private IEnumerator WaitForStun()
+    //{
+    //    yield return new WaitForSeconds(stunDuration);
+    //    Slow(0f); //Restore the move speed after stun duration is over
+    //}
 
     //Death behavior
     void Die()

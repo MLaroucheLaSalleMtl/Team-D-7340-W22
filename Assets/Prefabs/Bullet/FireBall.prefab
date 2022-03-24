@@ -9602,8 +9602,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 20
+  explosionRadius: 3
   speed: 25
   distance: 0.2
+  slowPercentage: 0
+  isStunable: 0
   hitEffectPrefab: {fileID: 8464598820677128303, guid: fccb79fa4cf6a1e4b8aea7e58a0cba44, type: 3}
 --- !u!1 &100006
 GameObject:

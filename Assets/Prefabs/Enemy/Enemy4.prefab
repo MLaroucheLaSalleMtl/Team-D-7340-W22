@@ -114,7 +114,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7027215b1947d0b479f54ae1a59fae47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myCam: {fileID: 0}
 --- !u!1 &2138965334226400023
 GameObject:
   m_ObjectHideFlags: 0
@@ -1137,9 +1136,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 30000
+  startSpeed: 5
   speed: 12
   damage: 10
   reward: 120
+  isDead: 0
   anim: {fileID: 0}
 --- !u!1 &2532887730291020430
 GameObject:

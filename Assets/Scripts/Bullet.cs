@@ -5,12 +5,14 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     //Variables for dmg system
-    [SerializeField] private int damage = 50; //TO BE ADJUSTED
+    [SerializeField] private int damage = 50;
+    [SerializeField] private float explosionRadius = 0f;
 
     //Variables for attack behavior
     [SerializeField] private float speed = 25f;
     [SerializeField] private float distance = 1f; //The distance between bullet and enemy
     [SerializeField] private float slowPercentage = 0.5f;
+    [SerializeField] private bool isStunable = false;
     private Transform target;
     //VFX
     public GameObject hitEffectPrefab; 
@@ -38,7 +40,6 @@ public class Bullet : MonoBehaviour
         if (dir.magnitude < distance)
         {
             //The target get damage when gets hit from bullet
-            target.GetComponent<Enemy>().TakeDamage(damage);
             Hit();
         }
     }
@@ -46,10 +47,54 @@ public class Bullet : MonoBehaviour
     //Hit behavior
     void Hit()
     {
-        target.GetComponent<Enemy>().Slow(slowPercentage);
+        if (!target.GetComponent<Enemy>().isDead)
+        {
+            if (!isStunable) //Check if the bullet is stunable
+                target.GetComponent<Enemy>().Freeze(slowPercentage);
+            else
+            {
+                int rng = Random.Range(0, 10);
+                if (rng == 8) //10% chance of stun
+                    target.GetComponent<Enemy>().Stun();
+            }
+        }
         GameObject effect = (GameObject)Instantiate(hitEffectPrefab, transform.position, transform.rotation);
+
+        if (explosionRadius > 0f)
+            Explode();
+        else
+            Damage(target);
+
         Destroy(effect, 1f); //Remove the effect after 1 sec
         SelfDestroy();
+    }
+
+    //Damage
+    void Damage(Transform tar)
+    {
+        Enemy e = tar.GetComponent<Enemy>();
+
+        if (e != null)
+            e.TakeDamage(damage);
+    }
+
+    //Explode
+    void Explode()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach(GameObject enemy in enemies)
+        {
+            if (explosionRadius >= Vector3.Distance(transform.position, enemy.transform.position))
+                Damage(enemy.transform);
+        }
+        //Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
+        //foreach (Collider c in colliders)
+        //{
+        //    if (c.CompareTag("Enemy"))
+        //    {
+        //        Damage(c.transform);
+        //    }
+        //}
     }
 
     //Self destroy behavior

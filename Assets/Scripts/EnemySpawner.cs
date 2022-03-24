@@ -19,7 +19,7 @@ public class EnemySpawner : MonoBehaviour
 
     void Start()
     {
-        gameManager = GameManager.Instance; //Cache the game manager
+        gameManager = GameManager.instance; //Cache the game manager
         StartCoroutine("SpawnEnemy");
     }
 
