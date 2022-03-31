@@ -9,7 +9,9 @@ public class GameManager : MonoBehaviour
     public Text endMessage;
 
     public static GameManager instance;
-    private EnemySpawner enemySpawner;   
+    private EnemySpawner enemySpawner;
+
+    public Button BtnNextLevel;
 
     void Update()
     {
@@ -17,6 +19,7 @@ public class GameManager : MonoBehaviour
         {
             Defeat();
         }
+
     }
 
     private void Awake()
@@ -46,6 +49,7 @@ public class GameManager : MonoBehaviour
     {
         enemySpawner.Stop();
         endUI.SetActive(true);
+        BtnNextLevel.gameObject.SetActive(false);//when game defeat, you can not go to  next level.
         endMessage.text = "Defeat";
     }
 }

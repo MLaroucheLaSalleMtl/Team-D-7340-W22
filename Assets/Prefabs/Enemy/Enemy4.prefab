@@ -1136,7 +1136,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 30000
-  startSpeed: 5
+  startSpeed: 6
   speed: 12
   damage: 10
   reward: 120

@@ -8,12 +8,13 @@ public class Enemy : MonoBehaviour
     //Variables for the parameters of the enemy
     public int hp = 100;
     private int totalHP;
-    private Transform[] positions;
+    private Transform[] positions; //Waypoints
     private int index = 0;
     [SerializeField]private float startSpeed = 1f;
 
-    //[HideInInspector]
+    [HideInInspector]
     public float speed;
+    private float cSpeed;
     [SerializeField]private int damage = 1;
     [SerializeField]private int reward = 20;
     [HideInInspector]public bool isDead = false; //To fix the kill reward stack bug
@@ -55,7 +56,10 @@ public class Enemy : MonoBehaviour
         {
             frozen = false;
             freezeDuration = 3f;
-            speed = startSpeed;
+            if (isDead)
+                speed = 0f;
+            else
+                speed = startSpeed;
         }
 
         //Stun restoration
@@ -65,7 +69,10 @@ public class Enemy : MonoBehaviour
         {
             stunned = false;
             stunDuration = 1f;
-            speed = startSpeed;
+            if (isDead)
+                speed = 0f;
+            else
+                speed = startSpeed;
         }
     }
 
@@ -117,30 +124,23 @@ public class Enemy : MonoBehaviour
     public void Freeze(float percentage)
     {
         frozen = true;
-        Slow(percentage);
+        if (stunned)
+            speed = 0f;
+        else
+            Slow(percentage);
     }
-    //private IEnumerator WaitForFreeze()
-    //{
-    //    yield return new WaitForSeconds(freezeDuration);
-    //    Slow(0f); //Restore the move speed after freeze duration is over
-    //}
 
     //Stun effect
     public void Stun()
     {
         stunned = true;
-        Slow(1f); //Stun: slow by 100%
+        speed = 0f; //Stun: slow by 100%
     }
-    //private IEnumerator WaitForStun()
-    //{
-    //    yield return new WaitForSeconds(stunDuration);
-    //    Slow(0f); //Restore the move speed after stun duration is over
-    //}
 
     //Death behavior
     void Die()
     {
-        speed = 0; //Freeze the enemy's position
+        speed = 0f; //Freeze the enemy's position
         isDead = true;
         anim.SetBool("Death", true);
         this.gameObject.tag = "Dead";

@@ -837,7 +837,7 @@ MonoBehaviour:
   startSpeed: 10
   speed: 10
   damage: 1
-  reward: 80
+  reward: 50
   isDead: 0
   anim: {fileID: 0}
 --- !u!1 &7408925833125740369

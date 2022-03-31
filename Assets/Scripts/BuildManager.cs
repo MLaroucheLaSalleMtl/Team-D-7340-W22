@@ -25,6 +25,14 @@ public class BuildManager : MonoBehaviour
     private Animator upgradeTowerCanvasAnimator;
     public Button upgradeButton;
 
+    //Get tower properties
+    public GameObject dataUI;
+    public GameObject crystalTower;
+    public GameObject iceTower;
+    public GameObject fireTower;
+    public GameObject earthTower;
+
+
     //Variables for tower selection
     private TowerData selectedTowerData; //The selected tower in the build UI
     //private GameObject selectedTowerGo; //The selected tower in the scene
@@ -38,6 +46,7 @@ public class BuildManager : MonoBehaviour
     //Singleton pattern
     private void Awake()
     {
+
         instance = this;
         if (instance == null)
         {
@@ -47,6 +56,16 @@ public class BuildManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        SelectData();
+    }
+
+    public void SelectData()
+    {
+        dataUI.SetActive(false);
+        crystalTower.SetActive(false);
+        iceTower.SetActive(false);
+        fireTower.SetActive(false);
+        earthTower.SetActive(false);
     }
 
     void Start()
@@ -110,30 +129,59 @@ public class BuildManager : MonoBehaviour
 
     public void OnIceSelected(bool isOn)
     {
-        if(isOn)
+        
+        if (isOn)
         {
+            dataUI.SetActive(false);
+            dataUI.SetActive(true);
             selectedTowerData = towerIceData;
+            //iceTower = GetComponent<GameObject>();
+            iceTower.SetActive(true);
+            earthTower.SetActive(false);
+            crystalTower.SetActive(false);
+            fireTower.SetActive(false);
         }
     }
     public void OnEarthSelected(bool isOn)
     {
         if(isOn)
         {
+            dataUI.SetActive(false);
+            dataUI.SetActive(true);
             selectedTowerData = towerEarthData;
+            //earthTower = GetComponent<GameObject>();
+            earthTower.SetActive(true); 
+            iceTower.SetActive(false);
+            crystalTower.SetActive(false);
+            fireTower.SetActive(false);
         }
     }
     public void OnCrystalSelected(bool isOn)
     {
         if(isOn)
         {
+            dataUI.SetActive(false);
+            dataUI.SetActive(true);
             selectedTowerData = towerCrystalData;
+            //crystalTower = GetComponent<GameObject>();
+            crystalTower.SetActive(true);
+            iceTower.SetActive(false);
+            earthTower.SetActive(false);
+            fireTower.SetActive(false);
         }
     }
     public void OnFireSelected(bool isOn)
     {
         if(isOn)
         {
+            dataUI.SetActive(false);
+            dataUI.SetActive(true);
             selectedTowerData = towerFireData;
+            //fireTower = GetComponent<GameObject>();
+            fireTower.SetActive(true);
+            iceTower.SetActive(false);
+            earthTower.SetActive(false);
+            crystalTower.SetActive(false);
         }
     }
 
