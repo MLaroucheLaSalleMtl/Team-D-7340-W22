@@ -10,7 +10,7 @@ public class Bullet : MonoBehaviour
 
     //Variables for attack behavior
     [SerializeField] private float speed = 25f;
-    [SerializeField] private float distance = 1f; //The distance between bullet and enemy
+    [SerializeField] private float distance = 0.2f; //The distance between bullet and enemy
     [SerializeField] private float slowPercentage = 0.5f;
     [SerializeField] private bool isStunable = false;
     private Transform target;
@@ -50,23 +50,30 @@ public class Bullet : MonoBehaviour
         if (!target.GetComponent<Enemy>().isDead)
         {
             if (!isStunable) //Check if the bullet is stunable
-                target.GetComponent<Enemy>().Freeze(slowPercentage);
+            { //Non-stunable
+                if (explosionRadius > 0f) //AoE
+                    Explode();
+                else
+                { //Not AoE
+                    target.GetComponent<Enemy>().Freeze(slowPercentage);
+                    Damage(target);
+                }
+            }
             else
-            {
+            { //Stunable
                 int rng = Random.Range(0, 10);
                 if (rng == 8) //10% chance of stun
                     target.GetComponent<Enemy>().Stun();
+                Damage(target);
             }
+
+            GameObject effect = (GameObject)Instantiate(hitEffectPrefab, transform.position, transform.rotation);
+
+            Destroy(effect, 1f); //Remove the effect after 1 sec
+            SelfDestroy();
         }
-        GameObject effect = (GameObject)Instantiate(hitEffectPrefab, transform.position, transform.rotation);
-
-        if (explosionRadius > 0f)
-            Explode();
         else
-            Damage(target);
-
-        Destroy(effect, 1f); //Remove the effect after 1 sec
-        SelfDestroy();
+            SelfDestroy();
     }
 
     //Damage
@@ -82,10 +89,13 @@ public class Bullet : MonoBehaviour
     void Explode()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        foreach(GameObject enemy in enemies)
+        foreach (GameObject enemy in enemies)
         {
             if (explosionRadius >= Vector3.Distance(transform.position, enemy.transform.position))
+            {
+                enemy.GetComponent<Enemy>().Freeze(slowPercentage);
                 Damage(enemy.transform);
+            }        
         }
         //Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
         //foreach (Collider c in colliders)

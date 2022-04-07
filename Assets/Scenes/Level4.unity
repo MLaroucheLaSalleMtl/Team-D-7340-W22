@@ -29170,7 +29170,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 200
+  m_Text: 300
 --- !u!222 &1237717823
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -48158,7 +48158,7 @@ MonoBehaviour:
     type: 3
   manaText: {fileID: 1237717822}
   manaanimator: {fileID: 1237717824}
-  mana: 200
+  mana: 300
   upgradeTowerCanvas: {fileID: 444704994}
   upgradeButton: {fileID: 231768882}
   dataUI: {fileID: 1373685333}

@@ -87,7 +87,9 @@ public class BuildManager : MonoBehaviour
                 if (isCollider)
                 {
                     Ground ground = hit.collider.GetComponent<Ground>();
-                    if (selectedTowerData != null && ground.towerGo == null)
+                    if (ground == null) //Fix the null reference exception problem when clicking a cube other than ground
+                        return;
+                    else if (selectedTowerData != null && ground.towerGo == null)
                     {
                         //Can build
                         if (mana >= selectedTowerData.cost)
@@ -101,13 +103,13 @@ public class BuildManager : MonoBehaviour
                             manaanimator.SetTrigger("Flicker");
                         }
                     }
-                    else if (ground.towerGo !=null)
+                    else if (ground.towerGo != null)
                     {
-                        //upgrade
+                        //upgrade  
                         ShowUpgradeUI(ground.transform.position, ground.isUpgraded);
-                        if (ground == selectedGround && upgradeTowerCanvas.activeInHierarchy) 
+                        if (ground == selectedGround && upgradeTowerCanvas.activeInHierarchy)
                         {
-                            StartCoroutine(HideUpgradeUI());   
+                            StartCoroutine(HideUpgradeUI());
                         }
                         else
                         {
@@ -115,21 +117,17 @@ public class BuildManager : MonoBehaviour
                         }
                         selectedGround = ground; //Update the selection
                     }
+                    else
+                        return;
                 }
                 else
                     return;
             }
-            else if (EventSystem.current.IsPointerOverGameObject())
-            {
-            }
-
         }
-
     }
 
     public void OnIceSelected(bool isOn)
-    {
-        
+    {        
         if (isOn)
         {
             dataUI.SetActive(false);
@@ -208,7 +206,6 @@ public class BuildManager : MonoBehaviour
     //upgrade tower function
     public void OnUpgradeButtonDown()
     {
-        Debug.Log("");
         if(mana >= selectedGround.towerData.UpgradedCost)
         {
             ChangeMana(-selectedGround.towerData.UpgradedCost);
@@ -225,9 +222,12 @@ public class BuildManager : MonoBehaviour
     //Destroy tower function
     public void OnDestroyButtonDown()
     {
+        if (!selectedGround.isUpgraded)
+            ChangeMana(+selectedGround.towerData.cost / 2);
+        else
+            ChangeMana(+(selectedGround.towerData.cost + selectedGround.towerData.UpgradedCost) / 2);
         selectedGround.DestroyTower();
         selectedGround.isUpgraded = false;
         StartCoroutine(HideUpgradeUI());
     }
-
 }

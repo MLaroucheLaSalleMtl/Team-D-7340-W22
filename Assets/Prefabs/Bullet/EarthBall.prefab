@@ -4872,7 +4872,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 20
   explosionRadius: 0
-  speed: 20
+  speed: 30
   distance: 0.2
   slowPercentage: 0
   isStunable: 1

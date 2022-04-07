@@ -14,7 +14,6 @@ public class Enemy : MonoBehaviour
 
     [HideInInspector]
     public float speed;
-    private float cSpeed;
     [SerializeField]private int damage = 1;
     [SerializeField]private int reward = 20;
     [HideInInspector]public bool isDead = false; //To fix the kill reward stack bug

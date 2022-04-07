@@ -1136,10 +1136,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 30000
-  startSpeed: 6
+  startSpeed: 5
   speed: 12
   damage: 10
-  reward: 120
+  reward: 140
   isDead: 0
   anim: {fileID: 0}
 --- !u!1 &2532887730291020430

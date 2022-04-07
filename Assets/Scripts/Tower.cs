@@ -47,7 +47,7 @@ public class Tower : MonoBehaviour
             GameObject bullet = (GameObject)Instantiate(bulletPrefab, attackPosition.position, attackPosition.rotation);
             //Set the first enemy of the list as the priority target
             if (attackAudio) attackAudio.PlayOneShot(attackAudio.clip);
-            bullet.GetComponent<Bullet>().SetTarget(enemies[0].transform);            
+            bullet.GetComponent<Bullet>().SetTarget(enemies[0].transform);
         }
         else
         {
