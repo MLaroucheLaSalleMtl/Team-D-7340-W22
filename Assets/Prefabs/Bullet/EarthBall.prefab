@@ -42,8 +42,7 @@ Transform:
 --- !u!198 &5917854651227374135
 ParticleSystem:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 7360164277520429726, guid: 8cf416882340f964ab4f203be19b033e,
-    type: 3}
+  m_CorrespondingSourceObject: {fileID: 7360164277520429726, guid: 8cf416882340f964ab4f203be19b033e, type: 3}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5917854651245566801}
@@ -4870,14 +4869,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fac41c34065579a4d97893e1b64debfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 20
+  damage: 25
   explosionRadius: 0
   speed: 30
   distance: 0.2
   slowPercentage: 0
   isStunable: 1
-  hitEffectPrefab: {fileID: 3258099094807329397, guid: 2a06672c779161040b5381193e8fb127,
-    type: 3}
+  hitEffectPrefab: {fileID: 3258099094807329397, guid: 2a06672c779161040b5381193e8fb127, type: 3}
 --- !u!1 &5917854651245566803
 GameObject:
   m_ObjectHideFlags: 0
